@@ -1,5 +1,7 @@
 package yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data
 
+import yeo.chi.study.hexagonal.order.domain.vo.SearchCondition
+
 data class OrderSearchRequest(
     val order: Order,
 
@@ -7,7 +9,11 @@ data class OrderSearchRequest(
 
     val offset: Long,
 ) {
-    fun toSearchCondition() {
-
+    fun toSearchCondition(): SearchCondition {
+        return SearchCondition(
+            order = order,
+            limit = limit,
+            offset = offset,
+        )
     }
 }

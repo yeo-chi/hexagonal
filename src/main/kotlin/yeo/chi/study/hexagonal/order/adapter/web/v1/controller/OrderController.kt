@@ -4,35 +4,42 @@ import jakarta.websocket.server.PathParam
 import org.springframework.http.HttpStatus.*
 import org.springframework.web.bind.annotation.*
 import yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data.OrderCreateRequest
-import yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data.OrderSearchRequest
 import yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data.OrderResponse
 import yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data.OrderResponses
+import yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data.OrderSearchRequest
+import yeo.chi.study.hexagonal.order.application.incoming.OrderUseCase
 
 @RestController
 @RequestMapping("api/v1/order")
-class OrderController {
-
+class OrderController(
+    private val orderUseCase: OrderUseCase,
+) {
     @GetMapping
     @ResponseStatus(OK)
-    fun getOrders(searchRequest: OrderSearchRequest): OrderResponses{
-
+    fun getOrders(searchRequest: OrderSearchRequest): OrderResponses {
+        return OrderResponses(
+            order = searchRequest.order,
+            limit = searchRequest.limit,
+            offset = searchRequest.offset,
+            orders = orderUseCase.getList(searchCondition = searchRequest.toSearchCondition()).map(::OrderResponse),
+        )
     }
 
     @GetMapping("{id}")
     @ResponseStatus(OK)
-    fun getOrder(): OrderResponse {
-
+    fun getOrder(@PathVariable("id") id: Long): OrderResponse {
+        return orderUseCase.getOne(id = id).let(::OrderResponse)
     }
 
     @PostMapping
     @ResponseStatus(CREATED)
     fun createOrder(@RequestBody createRequest: OrderCreateRequest) {
-
+        orderUseCase.create(createOrder = createRequest.toCreateOrder())
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(NO_CONTENT)
     fun deleteOrder(@PathParam("id") id: Long) {
-
+        orderUseCase.delete(id = id)
     }
 }
