@@ -1,21 +1,26 @@
 package yeo.chi.study.hexagonal.order.adapter.web.v1.controller
 
 import jakarta.websocket.server.PathParam
-import org.springframework.http.HttpStatus.CREATED
-import org.springframework.http.HttpStatus.NO_CONTENT
+import org.springframework.http.HttpStatus.*
 import org.springframework.web.bind.annotation.*
+import yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data.OrderCreateRequest
+import yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data.OrderSearchRequest
+import yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data.OrderResponse
+import yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data.OrderResponses
 
 @RestController
 @RequestMapping("api/v1/order")
 class OrderController {
 
     @GetMapping
-    fun getOrders(searchRequest: OrderSearchRequest) {
+    @ResponseStatus(OK)
+    fun getOrders(searchRequest: OrderSearchRequest): OrderResponses{
 
     }
 
     @GetMapping("{id}")
-    fun getOrder() {
+    @ResponseStatus(OK)
+    fun getOrder(): OrderResponse {
 
     }
 
