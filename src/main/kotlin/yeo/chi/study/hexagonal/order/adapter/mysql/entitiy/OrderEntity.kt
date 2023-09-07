@@ -5,7 +5,7 @@ import jakarta.persistence.GenerationType.IDENTITY
 import java.time.LocalDateTime
 
 @Entity
-@Table
+@Table(name = "`order`")
 class OrderEntity(
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -15,14 +15,14 @@ class OrderEntity(
 
     @ElementCollection
     @CollectionTable(
-        name = "food_id_entity",
+        name = "food_id",
         joinColumns = [JoinColumn(name = "order_id", referencedColumnName = "id")],
     )
     val foodIds: List<Long>,
 
     @ElementCollection
     @CollectionTable(
-        name = "coupon_id_entity",
+        name = "coupon_id",
         joinColumns = [JoinColumn(name = "order_id", referencedColumnName = "id")],
     )
     val couponIds: List<Long>,
