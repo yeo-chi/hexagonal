@@ -7,5 +7,7 @@ data class OrderResponses(
 
     val offset: Long,
 
+    val total: Long,
+
     val orders: List<OrderResponse>,
 )

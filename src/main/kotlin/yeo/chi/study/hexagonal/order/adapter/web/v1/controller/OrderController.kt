@@ -17,12 +17,15 @@ class OrderController(
     @GetMapping
     @ResponseStatus(OK)
     fun getOrders(searchRequest: OrderSearchRequest): OrderResponses {
-        return OrderResponses(
-            order = searchRequest.order,
-            limit = searchRequest.limit,
-            offset = searchRequest.offset,
-            orders = orderUseCase.getList(searchCondition = searchRequest.toSearchCondition()).map(::OrderResponse),
-        )
+        return with(orderUseCase.getList(searchCondition = searchRequest.toSearchCondition())) {
+            OrderResponses(
+                order = searchRequest.order,
+                limit = pageable.pageSize.toLong(),
+                offset = pageable.offset,
+                total = totalElements,
+                orders = content.map(::OrderResponse),
+            )
+        }
     }
 
     @GetMapping("{id}")
