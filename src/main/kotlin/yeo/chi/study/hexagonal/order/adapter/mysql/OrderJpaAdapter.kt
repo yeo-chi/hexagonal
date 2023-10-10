@@ -1,11 +1,12 @@
 package yeo.chi.study.hexagonal.order.adapter.mysql
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import yeo.chi.study.hexagonal.order.application.outgoing.OrderPort
-import yeo.chi.study.hexagonal.order.domain.Order
 import yeo.chi.study.hexagonal.order.domain.vo.CreateOrder
 import yeo.chi.study.hexagonal.order.domain.vo.PagedOrders
 import yeo.chi.study.hexagonal.order.domain.vo.SearchCondition
+import yeo.chi.study.hexagonal.order.domain.vo.SearchedOrder
 
 @Repository
 class OrderJpaAdapter(
@@ -25,8 +26,8 @@ class OrderJpaAdapter(
         }
     }
 
-    override fun findOne(id: Long): Order {
-        TODO("Not yet implemented")
+    override fun findOne(id: Long): SearchedOrder {
+        return orderJpaRepository.findByIdOrNull(id = id)?.toSearchedOrder() ?: throw NoSuchElementException()
     }
 
     override fun insert(createOrder: CreateOrder) {
