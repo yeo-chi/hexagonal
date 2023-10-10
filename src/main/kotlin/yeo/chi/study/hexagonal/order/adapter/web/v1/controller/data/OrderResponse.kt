@@ -4,7 +4,7 @@ import yeo.chi.study.hexagonal.order.domain.Order
 import java.time.LocalDateTime
 
 class OrderResponse(
-    order: Order
+    order: Order,
 ) {
     val id: Long
 
