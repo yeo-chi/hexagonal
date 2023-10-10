@@ -1,7 +1,7 @@
 package yeo.chi.study.hexagonal.order.domain
 
 import java.time.LocalDateTime
-import java.time.LocalDateTime.*
+import java.time.LocalDateTime.now
 
 class Order(
     val id: Long,

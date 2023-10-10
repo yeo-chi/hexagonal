@@ -1,7 +1,6 @@
 package yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data
 
 import yeo.chi.study.hexagonal.order.domain.Food
-import yeo.chi.study.hexagonal.order.domain.Option
 
 class FoodResponse(
     food: Food,
