@@ -17,15 +17,7 @@ class OrderController(
     @GetMapping
     @ResponseStatus(OK)
     fun getOrders(searchRequest: OrderSearchRequest): OrderResponses {
-        return with(orderUseCase.getList(searchCondition = searchRequest.toSearchCondition())) {
-            OrderResponses(
-                order = searchRequest.order,
-                limit = pageable.pageSize.toLong(),
-                offset = pageable.offset,
-                total = totalElements,
-                orders = content.map(::OrderResponse),
-            )
-        }
+        return orderUseCase.getList(searchCondition = searchRequest.toSearchCondition()).let(::OrderResponses)
     }
 
     @GetMapping("{id}")

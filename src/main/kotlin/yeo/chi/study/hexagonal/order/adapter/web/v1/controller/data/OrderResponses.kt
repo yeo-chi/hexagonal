@@ -1,13 +1,25 @@
 package yeo.chi.study.hexagonal.order.adapter.web.v1.controller.data
 
-data class OrderResponses(
-    val order: Order,
+import yeo.chi.study.hexagonal.order.domain.vo.PagedOrders
 
-    val limit: Long,
+class OrderResponses(
+    pagedOrders: PagedOrders,
+) {
+    val order: Order
 
-    val offset: Long,
+    val limit: Long
 
-    val total: Long,
+    val offset: Long
 
-    val orders: List<OrderResponse>,
-)
+    val total: Long
+
+    val orders: List<OrderResponse>
+
+    init {
+        order = Order.of(pagedOrders.order)
+        limit = pagedOrders.limit
+        offset = pagedOrders.offset
+        total = pagedOrders.totalCount
+        orders = pagedOrders.orders.map(::OrderResponse)
+    }
+}

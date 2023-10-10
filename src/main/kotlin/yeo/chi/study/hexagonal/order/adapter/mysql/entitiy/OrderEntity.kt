@@ -2,6 +2,7 @@ package yeo.chi.study.hexagonal.order.adapter.mysql.entitiy
 
 import jakarta.persistence.*
 import jakarta.persistence.GenerationType.IDENTITY
+import yeo.chi.study.hexagonal.order.domain.vo.SearchedOrder
 import java.time.LocalDateTime
 
 @Entity
@@ -30,4 +31,15 @@ class OrderEntity(
     val createdAt: LocalDateTime,
 
     var completeAt: LocalDateTime?,
-)
+) {
+    fun toSearchedOrder(): SearchedOrder {
+        return SearchedOrder(
+            id = id,
+            restaurantId = restaurantId,
+            foodIds = foodIds,
+            couponIds = couponIds,
+            createdAt = createdAt,
+            completeAt = completeAt,
+        )
+    }
+}
