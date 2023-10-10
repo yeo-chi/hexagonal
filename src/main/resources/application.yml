@@ -16,3 +16,15 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
   application:
     name: order
+  feign:
+    client:
+      config:
+        default:
+          loggerLevel: full
+          connect-timeout: 5000
+          readTimeout: 10000
+
+external-api:
+  coupon: http://localhost:8082
+  food: http://localhost:8083
+  restaurant: http://localhost:8084
