@@ -1,4 +1,4 @@
-package yeo.chi.study.hexagonal.order.configuration
+package yeo.chi.study.hexagonal.order.configuration.jwt
 
 import io.jsonwebtoken.Jwts
 import org.springframework.boot.context.properties.ConfigurationProperties

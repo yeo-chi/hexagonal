@@ -1,4 +1,4 @@
-package yeo.chi.study.hexagonal.order.configuration
+package yeo.chi.study.hexagonal.order.configuration.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
