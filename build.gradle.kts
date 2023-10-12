@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.3"
-    id("io.spring.dependency-management") version "1.1.3"
+    id("org.springframework.boot") version "3.1.3" apply false
+    id("io.spring.dependency-management") version "1.1.3" apply false
     kotlin("jvm") version "1.8.22"
-    kotlin("plugin.spring") version "1.8.22"
-    kotlin("plugin.jpa") version "1.8.22"
+    kotlin("plugin.spring") version "1.8.22" apply false
+    kotlin("plugin.jpa") version "1.8.22" apply false
 }
 
 group = "yeo.chi.study"
@@ -23,27 +23,8 @@ extra["springCloudVersion"] = "2022.0.4"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("mysql:mysql-connector-java:8.0.28")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("io.jsonwebtoken:jjwt-api:0.12.2")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.2")
-    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.2")
-    testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
-
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
-    }
-}
-
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {

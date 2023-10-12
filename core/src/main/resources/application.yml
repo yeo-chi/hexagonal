@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: core
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  expiration-second: 600
+  issuer: admin
