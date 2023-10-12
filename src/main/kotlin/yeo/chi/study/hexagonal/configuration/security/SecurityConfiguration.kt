@@ -5,9 +5,13 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy.STATELESS
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
+import yeo.chi.study.hexagonal.configuration.jwt.JwtAuthenticationFilter
 
 @Configuration
-class SecurityConfiguration {
+class SecurityConfiguration(
+    private val jwtAuthenticationFilter: JwtAuthenticationFilter,
+) {
     @Bean
     fun filterChain(http: HttpSecurity) = http
         .csrf { it.disable() }
@@ -26,6 +30,7 @@ class SecurityConfiguration {
                 .authenticated()
         }
         .sessionManagement { it.sessionCreationPolicy(STATELESS) }
+        .addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter::class.java)
         .build()
 
     @Bean

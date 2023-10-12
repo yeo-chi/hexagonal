@@ -27,4 +27,18 @@ class TokenProvider(
             .expiration(Date.from(Instant.now().plus(jwtConfiguration.expirationSecond, ChronoUnit.SECONDS)))
             .compact()
     }
+
+    fun validateTokenAndGetSubject(token: String): String? {
+        return Jwts.parser()
+            .verifyWith(
+                SecretKeySpec(
+                    jwtConfiguration.secretKey.toByteArray(),
+                    io.jsonwebtoken.SignatureAlgorithm.HS512.jcaName,
+                )
+            )
+            .build()
+            .parseSignedClaims(token)
+            .payload
+            .subject
+    }
 }
