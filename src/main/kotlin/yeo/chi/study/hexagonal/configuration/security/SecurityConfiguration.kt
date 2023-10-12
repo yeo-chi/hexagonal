@@ -7,7 +7,7 @@ import org.springframework.security.config.http.SessionCreationPolicy.STATELESS
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Configuration
-class SecurityConfig {
+class SecurityConfiguration {
     @Bean
     fun filterChain(http: HttpSecurity) = http
         .csrf { it.disable() }
