@@ -28,3 +28,8 @@ external-api:
   coupon: http://localhost:8082
   food: http://localhost:8083
   restaurant: http://localhost:8084
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  expiration-second: 600
+  issuer: admin
