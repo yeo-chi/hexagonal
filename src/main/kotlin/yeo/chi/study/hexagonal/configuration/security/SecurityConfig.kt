@@ -1,9 +1,10 @@
-package yeo.chi.study.hexagonal.order.configuration.security
+package yeo.chi.study.hexagonal.configuration.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy.STATELESS
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Configuration
 class SecurityConfig {
@@ -17,7 +18,7 @@ class SecurityConfig {
         }
         .authorizeHttpRequests {
             it.requestMatchers(
-                "/",
+                "/api/v1/users/**",
                 "/swagger-ui/**",
                 "/v3/**",
             ).permitAll()
@@ -26,4 +27,7 @@ class SecurityConfig {
         }
         .sessionManagement { it.sessionCreationPolicy(STATELESS) }
         .build()
+
+    @Bean
+    fun passwordEncoder() = BCryptPasswordEncoder()
 }
