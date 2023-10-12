@@ -40,10 +40,23 @@ class OrderService(
     }
 
     override fun create(createOrder: CreateOrder): Order {
-        TODO("Not yet implemented")
+        return orderPort.insert(createOrder = createOrder).let {
+            Order(
+                id = it.id,
+                restaurant = restaurantPort.findOne(id = it.restaurantId),
+                foods = it.foodIds.map { foodId ->
+                    foodPort.findOne(id = foodId)
+                },
+                coupons = it.couponIds.map { couponId ->
+                    couponPort.findOne(id = couponId)
+                },
+                createdAt = it.createdAt,
+                completeAt = it.completeAt,
+            )
+        }
     }
 
     override fun delete(id: Long) {
-        TODO("Not yet implemented")
+        orderPort.delete(id = id)
     }
 }

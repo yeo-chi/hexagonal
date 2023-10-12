@@ -2,7 +2,9 @@ package yeo.chi.study.hexagonal.order.adapter.mysql
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
+import yeo.chi.study.hexagonal.order.adapter.mysql.entitiy.OrderEntity
 import yeo.chi.study.hexagonal.order.application.outgoing.OrderPort
+import yeo.chi.study.hexagonal.order.domain.Order
 import yeo.chi.study.hexagonal.order.domain.vo.CreateOrder
 import yeo.chi.study.hexagonal.order.domain.vo.PagedOrders
 import yeo.chi.study.hexagonal.order.domain.vo.SearchCondition
@@ -30,11 +32,18 @@ class OrderJpaAdapter(
         return orderJpaRepository.findByIdOrNull(id = id)?.toSearchedOrder() ?: throw NoSuchElementException()
     }
 
-    override fun insert(createOrder: CreateOrder) {
-        TODO("Not yet implemented")
+    override fun insert(createOrder: CreateOrder): SearchedOrder {
+        return orderJpaRepository.save(
+            OrderEntity(
+                restaurantId = createOrder.restaurantId,
+                foodIds = createOrder.foodIds,
+                couponIds = createOrder.couponIds,
+                completeAt = null,
+            )
+        ).toSearchedOrder()
     }
 
     override fun delete(id: Long) {
-        TODO("Not yet implemented")
+        return orderJpaRepository.deleteById(id)
     }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*
 import jakarta.persistence.GenerationType.IDENTITY
 import yeo.chi.study.hexagonal.order.domain.vo.SearchedOrder
 import java.time.LocalDateTime
+import java.time.LocalDateTime.now
 
 @Entity
 @Table(name = "`order`")
@@ -28,7 +29,7 @@ class OrderEntity(
     )
     val couponIds: List<Long>,
 
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime = now(),
 
     var completeAt: LocalDateTime?,
 ) {

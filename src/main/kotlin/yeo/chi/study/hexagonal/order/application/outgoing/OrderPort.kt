@@ -11,7 +11,7 @@ interface OrderPort {
 
     fun findOne(id: Long): SearchedOrder
 
-    fun insert(createOrder: CreateOrder)
+    fun insert(createOrder: CreateOrder): SearchedOrder
 
     fun delete(id: Long)
 }
